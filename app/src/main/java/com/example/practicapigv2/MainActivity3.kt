@@ -26,10 +26,10 @@ class MainActivity3 : AppCompatActivity() {
 
         for (i in 0.. nombresElegidos!!.size-1){
 
-            jugadores.add(Jugador(nombresElegidos.get(i)))
+            jugadores.add(Jugador(nombresElegidos[i]))
 
         }
-        Collections.shuffle(jugadores)
+        jugadores.shuffle()
         println(jugadores+" "+rondas)
 
 
