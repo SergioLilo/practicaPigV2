@@ -49,7 +49,7 @@ class MainActivity2 : AppCompatActivity() {
                         val intent = Intent(this@MainActivity2, MainActivity3::class.java)
                         intent.putStringArrayListExtra("nombresElegidos", ArrayList(nombresEleccion))
 
-                        intent.putExtra("rondas",rondas)
+                        intent.putExtra("rondas",rondas.toString())
                         startActivity(intent)
                     }
                 }
