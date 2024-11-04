@@ -22,18 +22,29 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val items = listOf("Seleccione:","2", "3", "4")
+        val items = listOf("Seleccione","2", "3", "4")
         val adapter = ArrayAdapter(this,android.R.layout.simple_spinner_item,items)
         var seleccion:Boolean=false
-
+        var seleccionJugador:Boolean=false
+        var rondas:Int=0
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        // Asigna el adaptador al Spinner
+
         binding.jugadoresID.adapter = adapter
 
+        binding.rondasID.setOnClickListener {
+            rondas = binding.rondasID.text.toString().toInt()
+            if (rondas > 0) {
+                seleccionJugador = true
+                Toast.makeText(this, "Número de rondas establecido: $rondas", Toast.LENGTH_SHORT).show()
+            } else {
+                seleccionJugador = false
+                Toast.makeText(this, "Por favor, ingrese un número válido de rondas.", Toast.LENGTH_SHORT).show()
+            }
+        }
 
-            binding.jugadoresID.onItemSelectedListener =
+        binding.jugadoresID.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
                         parent: AdapterView<*>,
@@ -41,16 +52,21 @@ class MainActivity : AppCompatActivity() {
                         position: Int,
                         id: Long
                     ) {
+                        if (seleccionJugador) {
+                            if (!parent.selectedItem.equals(0)){
+                                jugadores = parent.getItemAtPosition(position).toString()
+                                val intent = Intent(this@MainActivity, MainActivity2::class.java)
 
-                        if (!seleccion){
-                            seleccion=true
-                        }else {
+                                intent.putExtra("numJugadores", jugadores)
+                                intent.putExtra("rondas",binding.rondasID.text.toString())
+                                startActivity(intent)}
 
-                            jugadores = parent.getItemAtPosition(position).toString()
-                            val intent = Intent(this@MainActivity, MainActivity2::class.java)
-                            intent.putExtra("numJugadores", jugadores)
-                            startActivity(intent)
+                        } else {
+                            parent.setSelection(0)
+                            Toast.makeText(this@MainActivity, "Primero debe seleccionar el número de rondas.", Toast.LENGTH_SHORT).show()
+
                         }
+
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {

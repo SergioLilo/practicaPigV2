@@ -6,12 +6,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
 import com.example.practicapigv2.R
+import com.example.practicapigv2.nombres
 
 /**
  * Esta clase recibe el Array con los meses y hereda de RecyclerView.Adapter
  */
-class CustomAdapter(private val dataSet: List<String>) :
+class CustomAdapter(private val dataSet: List<String>,private val nombresSeleccionados: MutableList<String>, private val onItemClicked: (String) -> Unit) :
+
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     /**
@@ -26,6 +29,7 @@ class CustomAdapter(private val dataSet: List<String>) :
             // Define el listener de clicks para la vista de cada elemento textView
             textView = view.findViewById(R.id.textView)
         }
+
     }
 
     // Crear nuevas vistas (invocadas por el layout manager-administrador de diseño)
@@ -49,8 +53,19 @@ class CustomAdapter(private val dataSet: List<String>) :
         viewHolder.itemView.setOnClickListener {
             //¿QUE PUEDE SER ESO DEL CONTEXT? ==> PRÓXIMOS CAPÍTULOS
             val context = viewHolder.itemView.context
-            val text = "Elemento pulsado: ${dataSet[position]}"
+
+            val nombreSeleccionado=dataSet[position]
+            if (!nombresSeleccionados.contains(nombreSeleccionado)) {
+                nombresSeleccionados.add(nombreSeleccionado)
+            val text = "Elemento pulsado: $nombreSeleccionado"
             Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+                onItemClicked(nombreSeleccionado)
+            }else{
+                Toast.makeText(context, "Nombre ya seleccionado", Toast.LENGTH_SHORT).show()
+
+            }
+
+
         }
     }
 

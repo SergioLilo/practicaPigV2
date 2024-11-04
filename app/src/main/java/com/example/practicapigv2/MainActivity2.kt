@@ -1,5 +1,6 @@
 package com.example.practicapigv2
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -15,7 +16,7 @@ val nombres = listOf(
     "Lola Mento", "Luz Cuesta", "Margarita Flores", "Paco Tilla",
     "Pere Gil", "Pío Nono", "Salvador Tumbado", "Zoila Vaca"
 )
- lateinit var   nombresEleccion: ArrayList<String>
+private val nombresEleccion = mutableListOf<String>()
 class MainActivity2 : AppCompatActivity() {
     private lateinit var binding: ActivityMain2Binding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +24,11 @@ class MainActivity2 : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
-
         var numeroElecciones:Int=0
+
         val numJugadores = intent.getStringExtra("numJugadores")?.toInt()?:0
-        //ponerRecicleViews(numJugadores, nombres)
+        val rondas = intent.getStringExtra("rondas")?.toInt()?:0
+
         val recyclerViews = listOf(
             binding.rec1,
             binding.rec2,
@@ -38,8 +40,19 @@ class MainActivity2 : AppCompatActivity() {
             recyclerViews[i].apply {
                 visibility = View.VISIBLE
                 layoutManager = LinearLayoutManager(this@MainActivity2)
-                adapter = CustomAdapter(nombres)
+                adapter = CustomAdapter(nombres,  nombresEleccion){
+                    visibility=View.GONE
+                    println(nombresEleccion)
+                    numeroElecciones++
 
+                    if (numeroElecciones==numJugadores){
+                        val intent = Intent(this@MainActivity2, MainActivity3::class.java)
+                        intent.putStringArrayListExtra("nombresElegidos", ArrayList(nombresEleccion))
+
+                        intent.putExtra("rondas",rondas)
+                        startActivity(intent)
+                    }
+                }
 
             }
         }
@@ -47,13 +60,6 @@ class MainActivity2 : AppCompatActivity() {
 
 
 
-
-
-
-
     }
 
-    private fun ponerRecicleViews(numJugadores: Int, nombres: List<String>) {
-
-    }
 }
