@@ -57,7 +57,7 @@ class CustomAdapter(private val dataSet: List<String>,private val nombresSelecci
             val nombreSeleccionado=dataSet[position]
             if (!nombresSeleccionados.contains(nombreSeleccionado)) {
                 nombresSeleccionados.add(nombreSeleccionado)
-            val text = "Elemento pulsado: $nombreSeleccionado"
+            val text = "Nombre Seleccionado: $nombreSeleccionado"
             Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                 onItemClicked(nombreSeleccionado)
             }else{

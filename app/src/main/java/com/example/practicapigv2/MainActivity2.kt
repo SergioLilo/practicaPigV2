@@ -35,6 +35,19 @@ class MainActivity2 : AppCompatActivity() {
             binding.rec3,
             binding.rec4
         )
+        val textoJugadores = listOf(
+           binding.texto1,
+           binding.texto2,
+           binding.texto3,
+           binding.texto4
+
+        )
+        for (i in 0 until textoJugadores.size) {
+            textoJugadores[i].apply { visibility = View.GONE }
+        }
+        for (i in 0 until numJugadores) {
+            textoJugadores[i].apply { visibility = View.VISIBLE }
+        }
 
         for (i in 0 until numJugadores) {
             recyclerViews[i].apply {

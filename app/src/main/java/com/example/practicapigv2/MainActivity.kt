@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             rondas = binding.rondasID.text.toString().toInt()
             if (rondas > 0) {
                 seleccionJugador = true
-                Toast.makeText(this, "Número de rondas establecido: $rondas", Toast.LENGTH_SHORT).show()
+
             } else {
                 seleccionJugador = false
                 Toast.makeText(this, "Por favor, ingrese un número válido de rondas.", Toast.LENGTH_SHORT).show()
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
                         } else {
                             parent.setSelection(0)
-                            Toast.makeText(this@MainActivity, "Primero debe seleccionar el número de rondas.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@MainActivity, "Primero debe seleccionar el número de rondas.", Toast.LENGTH_LONG).show()
 
                         }
 

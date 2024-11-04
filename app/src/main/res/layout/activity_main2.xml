@@ -5,47 +5,112 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EF87AFE7"
     tools:context=".MainActivity2">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec1"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_width="229dp"
+        android:layout_height="63dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.027"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="0.203" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec2"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_width="229dp"
+        android:layout_height="63dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.316" />
+        app:layout_constraintVertical_bias="0.368" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec3"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_width="229dp"
+        android:layout_height="63dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintVertical_bias="0.538" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec4"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_width="229dp"
+        android:layout_height="63dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.886" />
+        app:layout_constraintVertical_bias="0.715" />
+
+    <TextView
+        android:id="@+id/texto1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="74dp"
+        android:layout_marginBottom="80dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:text="JUGADOR 1"
+        app:layout_constraintBottom_toBottomOf="@+id/rec1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.892" />
+
+    <TextView
+        android:id="@+id/texto4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="169dp"
+        android:layout_marginBottom="86dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:text="JUGADOR 4"
+        app:layout_constraintBottom_toBottomOf="@+id/rec4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rec3" />
+
+    <TextView
+        android:id="@+id/texto3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="87dp"
+        android:layout_marginEnd="169dp"
+        android:layout_marginBottom="80dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:text="JUGADOR 3"
+        app:layout_constraintBottom_toBottomOf="@+id/rec3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rec2" />
+
+    <TextView
+        android:id="@+id/texto2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="74dp"
+        android:layout_marginBottom="80dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:text="JUGADOR 2"
+        app:layout_constraintBottom_toBottomOf="@+id/rec2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rec1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
