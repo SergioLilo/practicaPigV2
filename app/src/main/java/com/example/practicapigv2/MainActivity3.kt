@@ -1,5 +1,6 @@
 package com.example.practicapigv2
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -35,6 +36,8 @@ class MainActivity3 : AppCompatActivity() {
         var numtirado = 0
         var turno = 1
         var numTurno=0
+        var mensajeFinal:String =""
+        val intent = Intent(this@MainActivity3, MainActivity4::class.java)
 
         binding.TurnJug.text = "Turno de " + jugadores[numTurno].nombre
         binding.rondaID.visibility = View.VISIBLE
@@ -97,12 +100,16 @@ class MainActivity3 : AppCompatActivity() {
 
 
                     if (turno == rondas + 1) {
-                        ganador(jugadores)
+                        mensajeFinal=obtenerGanadorOEmpate(jugadores)
+                        intent.putExtra("final",mensajeFinal)
+                        startActivity(intent)
                     }
                 }
 
                 if (turno == rondas + 1) {
-                    ganador(jugadores)
+                    mensajeFinal=obtenerGanadorOEmpate(jugadores)
+                    intent.putExtra("final",mensajeFinal)
+                    startActivity(intent)
                 }
 
             },1555)
@@ -185,20 +192,7 @@ class MainActivity3 : AppCompatActivity() {
         }
 
     }
-    private fun ganador(jugadores: ArrayList<Jugador>) {
-        binding.pasarID.visibility = View.GONE
-        binding.TurnJug.visibility = View.GONE
-        binding.botonTirar.visibility = View.GONE
-        binding.rondaID.visibility = View.GONE
-        binding.puntJUG.visibility = View.GONE
-        quitarDado(binding)
-        clasificacion(binding, jugadores)
-      //  binding.IDganador.visibility = View.VISIBLE
-        //jugadores.sortedBy { it.puntuacion }
-        jugadores.sortByDescending { it.puntuacion }
-      //  binding.IDganador.text = "EL GANADOR ES: " + jugadores.get(0).nombre
 
-    }
     private fun clasificacion(binding: ActivityMain3Binding, jugadores: ArrayList<Jugador>){
         var mensaje:String=""
         for (i in 0 .. jugadores.size-1){
@@ -209,4 +203,21 @@ class MainActivity3 : AppCompatActivity() {
         binding.clasificacionID.text=mensaje
 
     }
+    fun obtenerGanadorOEmpate(jugadores: ArrayList<Jugador>): String {
+
+
+        val maxPuntuacion = jugadores.maxOf { it.puntuacion }
+
+
+        val ganadores = jugadores.filter { it.puntuacion == maxPuntuacion }
+
+
+        return if (ganadores.size == 1) {
+            "El ganador es ${ganadores[0].nombre} con una puntuación de $maxPuntuacion."
+        } else {
+            val nombresEmpatados = ganadores.joinToString(", ") { it.nombre }
+            "Han empatado: $nombresEmpatados con una puntuación de $maxPuntuacion."
+        }
+    }
+
 }
