@@ -45,6 +45,7 @@ class MainActivity3 : AppCompatActivity() {
         binding.clasificacionID.visibility = View.VISIBLE
         binding.rondaID.text = "RONDA: " + turno
         clasificacion(binding,jugadores)
+        binding.pasarID.visibility = View.GONE
         binding.botonTirar.setOnClickListener {
 
             quitarDado(binding)
