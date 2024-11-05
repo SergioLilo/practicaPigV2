@@ -37,13 +37,14 @@ class MainActivity3 : AppCompatActivity() {
         var turno = 1
         var numTurno=0
         var mensajeFinal:String =""
+        var clasificacionFinal:String=""
         val intent = Intent(this@MainActivity3, MainActivity4::class.java)
 
         binding.TurnJug.text = "Turno de " + jugadores[numTurno].nombre
         binding.rondaID.visibility = View.VISIBLE
         binding.clasificacionID.visibility = View.VISIBLE
         binding.rondaID.text = "RONDA: " + turno
-
+        clasificacion(binding,jugadores)
         binding.botonTirar.setOnClickListener {
 
             quitarDado(binding)
@@ -101,14 +102,18 @@ class MainActivity3 : AppCompatActivity() {
 
                     if (turno == rondas + 1) {
                         mensajeFinal=obtenerGanadorOEmpate(jugadores)
+                        clasificacionFinal=clasificacion(binding, jugadores)
                         intent.putExtra("final",mensajeFinal)
+                        intent.putExtra("clasificacion",clasificacionFinal)
                         startActivity(intent)
                     }
                 }
 
                 if (turno == rondas + 1) {
                     mensajeFinal=obtenerGanadorOEmpate(jugadores)
+                    clasificacionFinal=clasificacion(binding, jugadores)
                     intent.putExtra("final",mensajeFinal)
+                    intent.putExtra("clasificacion",clasificacionFinal)
                     startActivity(intent)
                 }
 
@@ -193,7 +198,7 @@ class MainActivity3 : AppCompatActivity() {
 
     }
 
-    private fun clasificacion(binding: ActivityMain3Binding, jugadores: ArrayList<Jugador>){
+    private fun clasificacion(binding: ActivityMain3Binding, jugadores: ArrayList<Jugador>): String {
         var mensaje:String=""
         for (i in 0 .. jugadores.size-1){
 
@@ -201,7 +206,7 @@ class MainActivity3 : AppCompatActivity() {
 
         }
         binding.clasificacionID.text=mensaje
-
+        return mensaje
     }
     fun obtenerGanadorOEmpate(jugadores: ArrayList<Jugador>): String {
 

@@ -16,7 +16,9 @@ class MainActivity4 : AppCompatActivity() {
         binding = ActivityMain4Binding.inflate(layoutInflater)
         setContentView(binding.root)
         val textoFinal = intent.getStringExtra("final")
+        val clasificacion = intent.getStringExtra("clasificacion")
         binding.textoFinalId.setText(textoFinal)
+        binding.clasificacionFinalID.setText(clasificacion)
 
         }
     }

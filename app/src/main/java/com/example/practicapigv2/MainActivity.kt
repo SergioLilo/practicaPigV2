@@ -34,13 +34,19 @@ class MainActivity : AppCompatActivity() {
         binding.jugadoresID.adapter = adapter
 
         binding.rondasID.setOnClickListener {
-            rondas = binding.rondasID.text.toString().toInt()
-            if (rondas > 0) {
-                seleccionJugador = true
+            if(!binding.rondasID.text.toString().equals("")) {
+                rondas = binding.rondasID.text.toString().toInt()
+                if (rondas > 0) {
+                    seleccionJugador = true
 
-            } else {
-                seleccionJugador = false
-                Toast.makeText(this, "Por favor, ingrese un número válido de rondas.", Toast.LENGTH_SHORT).show()
+                } else {
+                    seleccionJugador = false
+                    Toast.makeText(
+                        this,
+                        "Por favor, ingrese un número válido de rondas.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
 
