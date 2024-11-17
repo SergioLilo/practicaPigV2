@@ -1,12 +1,13 @@
 package com.example.practicapigv2
 
 
-import android.os.Parcelable
+
+import java.io.Serializable
 import kotlin.random.Random
 
 
 
-class Jugador(val nombre: String)  {
+class Jugador(val nombre: String): Serializable {
 
     var puntuacion:Int=0
 

@@ -103,19 +103,17 @@ class MainActivity3 : AppCompatActivity() {
 
 
                     if (turno == rondas + 1) {
-                        mensajeFinal=obtenerGanadorOEmpate(jugadores)
-                        clasificacionFinal=clasificacion(binding, jugadores)
-                        intent.putExtra("final",mensajeFinal)
-                        intent.putExtra("clasificacion",clasificacionFinal)
+
+
+                        intent.putExtra("listaJugadores", ArrayList(jugadores));
                         startActivity(intent)
                     }
                 }
 
                 if (turno == rondas + 1) {
-                    mensajeFinal=obtenerGanadorOEmpate(jugadores)
-                    clasificacionFinal=clasificacion(binding, jugadores)
-                    intent.putExtra("final",mensajeFinal)
-                    intent.putExtra("clasificacion",clasificacionFinal)
+
+
+                    intent.putExtra("listaJugadores", ArrayList(jugadores));
                     startActivity(intent)
                 }
 
@@ -186,21 +184,6 @@ class MainActivity3 : AppCompatActivity() {
         binding.clasificacionID.text=mensaje
         return mensaje
     }
-    fun obtenerGanadorOEmpate(jugadores: ArrayList<Jugador>): String {
 
-
-        val maxPuntuacion = jugadores.maxOf { it.puntuacion }
-
-
-        val ganadores = jugadores.filter { it.puntuacion == maxPuntuacion }
-
-
-        return if (ganadores.size == 1) {
-            "El ganador es ${ganadores[0].nombre} con una puntuación de $maxPuntuacion."
-        } else {
-            val nombresEmpatados = ganadores.joinToString(", ") { it.nombre }
-            "Han empatado: $nombresEmpatados con una puntuación de $maxPuntuacion."
-        }
-    }
 
 }
