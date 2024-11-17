@@ -27,9 +27,9 @@ class MainActivity3 : AppCompatActivity() {
         for (i in 0.. nombresElegidos!!.size-1){
 
             jugadores.add(Jugador(nombresElegidos[i]))
-
         }
         jugadores.shuffle()
+
         println(jugadores+" "+rondas)
         var num: Int=jugadores.size
         var dado: Int = 0
@@ -46,6 +46,7 @@ class MainActivity3 : AppCompatActivity() {
         binding.rondaID.text = "RONDA: " + turno
         clasificacion(binding,jugadores)
         binding.pasarID.visibility = View.GONE
+
         binding.botonTirar.setOnClickListener {
 
             quitarDado(binding)
@@ -122,31 +123,7 @@ class MainActivity3 : AppCompatActivity() {
         }
 
     }
-    class Jugador(s: String) {
 
-        var puntuacion:Int=0
-        var nombre:String=s
-        var puntuacionTurno:Int=0
-        public fun tirar(): Int {
-            var dado= Random.nextInt(1,7)
-            when(dado) {
-                1 -> puntuacionTurno=puntuacionTurno+1
-                2 -> puntuacionTurno=puntuacionTurno+2
-                3 -> puntuacionTurno=puntuacionTurno+3
-                4 -> puntuacionTurno=puntuacionTurno+4
-                5 -> puntuacionTurno=puntuacionTurno+5
-                6 -> puntuacionTurno=puntuacionTurno+6
-            }
-            return dado
-
-        }
-
-        override fun toString(): String {
-            return "Jugador(puntuacion=$puntuacion, nombre='$nombre')"
-        }
-
-
-    }
     private fun ponerDado(binding: ActivityMain3Binding,dado:Int) {
         when (dado) {
             1 -> binding.dado1.visibility = View.VISIBLE

@@ -59,7 +59,7 @@
         android:layout_marginBottom="18dp"
         android:scaleX="2"
         android:scaleY="2"
-        android:text="JUGADOR 1"
+        android:text="Elegir Nombre:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -76,13 +76,13 @@
         android:layout_marginEnd="169dp"
         android:scaleX="2"
         android:scaleY="2"
-        android:text="JUGADOR 4"
+        android:text="Elegir Nombre:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57" />
+        app:layout_constraintVertical_bias="0.569" />
 
     <TextView
         android:id="@+id/texto3"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:scaleX="2"
         android:scaleY="2"
-        android:text="JUGADOR 3"
+        android:text="Elegir Nombre:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -105,7 +105,7 @@
         android:layout_marginBottom="80dp"
         android:scaleX="2"
         android:scaleY="2"
-        android:text="JUGADOR 2"
+        android:text="Elegir Nombre:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
