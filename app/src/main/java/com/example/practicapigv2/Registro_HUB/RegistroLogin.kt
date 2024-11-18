@@ -21,16 +21,16 @@ class RegistroLogin : AppCompatActivity() {
         binding = ActivityRegistroLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.datePickerID.isFocusable=false
-        binding.datePickerID.setOnClickListener({
+
+        binding.datePickerID.setOnClickListener {
             datePicker()
+        }
 
-        })
-        binding.loginId.setOnClickListener({
-
+        binding.loginId.setOnClickListener {
             val intent = Intent(this@RegistroLogin, Login::class.java)
-                    startActivity(intent)
+            startActivity(intent)
+        }
 
-        })
 
     }
 
