@@ -1,4 +1,4 @@
-package com.example.practicapigv2
+package com.example.practicapigv2.juegoDado
 
 import android.content.Intent
 import android.os.Bundle

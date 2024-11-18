@@ -1,16 +1,10 @@
-package com.example.practicapigv2
+package com.example.practicapigv2.juegoDado
 
-import android.content.Intent
 import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.practicapigv2.databinding.ActivityMain3Binding
 import com.example.practicapigv2.databinding.ActivityMain4Binding
 
 class MainActivity4 : AppCompatActivity() {

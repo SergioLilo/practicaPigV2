@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Visibility
 import com.example.practicapigv2.R
-import com.example.practicapigv2.nombres
 
 /**
  * Esta clase recibe el Array con los meses y hereda de RecyclerView.Adapter
