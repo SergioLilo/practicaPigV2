@@ -17,13 +17,13 @@ class HUB : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_hub)
         binding = ActivityHubBinding.inflate(layoutInflater)
-        val intent = Intent(this@HUB, MainActivity::class.java)
-        binding.juegoPigBoton.setOnClickListener({
+        setContentView(binding.root)
 
+        binding.juegoPigBoton.setOnClickListener {
+            val intent = Intent(this@HUB, MainActivity::class.java)
             startActivity(intent)
 
-        })
+        }
     }
 }
