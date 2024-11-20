@@ -92,10 +92,10 @@ class RegistroLogin : AppCompatActivity() {
             var usuarioExistente:Boolean=false
             withContext(Dispatchers.IO) {
 
-                if (usuario.nombre.length in 4..10) {
+                if (usuario.nombre!=null && usuario.nombre.length in 4..10) {
                     nombreLength1 = true
                 }
-                if ((usuario.contrasenya.length in 4..10)) {
+                if ((usuario.contrasenya!=null && usuario.contrasenya.length in 4..10)) {
 
                     for (i in 0..9) {
                         if (usuario.contrasenya.contains(i.toString())) {
@@ -114,6 +114,7 @@ class RegistroLogin : AppCompatActivity() {
                 }
 
             }
+
             withContext(Dispatchers.Main) {
                 if (usuarioExistente) {
                     binding.userExistenteID.text = "Usuario ya existente, cambie el nombre"
@@ -157,22 +158,25 @@ class RegistroLogin : AppCompatActivity() {
 
     fun esMenorDe16Anios(fechaNacimientoString: String): Boolean {
 
-        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        val comprobacion = fechaNacimientoString.split("-")
-        val dia=comprobacion[0]
-        val mes=comprobacion[1]
+        if (fechaNacimientoString!="") {
+            var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+            val comprobacion = fechaNacimientoString.split("-")
+            val dia = comprobacion[0]
+            val mes = comprobacion[1]
 
 
-        if (dia.length==1) formatter = DateTimeFormatter.ofPattern("d-MM-yyyy")
-        if (mes.length==1)formatter = DateTimeFormatter.ofPattern("dd-M-yyyy")
-        if (mes.length==1&&dia.length==1)formatter = DateTimeFormatter.ofPattern("d-M-yyyy")
+            if (dia.length == 1) formatter = DateTimeFormatter.ofPattern("d-MM-yyyy")
+            if (mes.length == 1) formatter = DateTimeFormatter.ofPattern("dd-M-yyyy")
+            if (mes.length == 1 && dia.length == 1) formatter =
+                DateTimeFormatter.ofPattern("d-M-yyyy")
 
 
-        val fechaNacimiento = LocalDate.parse(fechaNacimientoString, formatter)
-        val fechaActual = LocalDate.now()
+            val fechaNacimiento = LocalDate.parse(fechaNacimientoString, formatter)
+            val fechaActual = LocalDate.now()
 
-        val edad = Period.between(fechaNacimiento, fechaActual).years
-
-        return edad>16
+            val edad = Period.between(fechaNacimiento, fechaActual).years
+            return edad>16
+        }
+        return false
     }
 }
