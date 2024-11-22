@@ -130,7 +130,7 @@ class RegistroLogin : AppCompatActivity() {
                 binding.nombreIncorrectoID.text = "El nombre debe tener entre 4 y 10 caracteres"
         }
                 if (!contrasenyaLength1) {
-//
+
                 binding.contrasenyaIncorrectoID.text =
                     "Contraseña entre 4 y 10 caracteres, debe contener un numero"
         }

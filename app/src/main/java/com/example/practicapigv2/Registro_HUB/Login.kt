@@ -1,5 +1,6 @@
 package com.example.practicapigv2.Registro_HUB
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +17,12 @@ class Login : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var intent : Intent
 
+        binding.registerID.setOnClickListener({
+            intent= Intent(this@Login, RegistroLogin::class.java)
+            startActivity(intent)
+        })
 
     }
 }
