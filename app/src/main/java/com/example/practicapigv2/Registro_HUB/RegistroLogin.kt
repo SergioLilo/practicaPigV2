@@ -111,7 +111,7 @@ class RegistroLogin : AppCompatActivity() {
                     val comprobacionNombre = userDao.comprobarPorNombre(usuario.nombre)
                     if (comprobacionNombre == null) {
                         userDao.insertarUsuario(usuario)
-                        val intent = Intent(this@RegistroLogin, MainActivity::class.java)
+                        val intent = Intent(this@RegistroLogin, Login::class.java)
                         startActivity(intent)
                     }else{
                         usuarioExistente=true
