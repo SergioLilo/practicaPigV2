@@ -16,6 +16,7 @@ import com.example.practicapigv2.Registro_HUB.BBDD.Usuario
 import com.example.practicapigv2.Registro_HUB.BBDD.UsuarioDao
 import com.example.practicapigv2.databinding.ActivityHubBinding
 import com.example.practicapigv2.databinding.ActivityRegistroLoginBinding
+import com.example.practicapigv2.juegoDado.MainActivity
 import com.example.practicapigv2.juegoDado.MainActivity2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -65,7 +66,7 @@ class RegistroLogin : AppCompatActivity() {
                         contrasenya = binding.contrasenyaID.text.toString(),
                         fechaNacimiento = binding.datePickerID.text.toString()
                     )
-                    comprobacionUser(usuario, nombreLength, contrasenyaLength, edadCorrecta,userDao)
+                    comprobacionUser(usuario,userDao)
         }
     }
     private fun resetMensajes(){
@@ -73,25 +74,27 @@ class RegistroLogin : AppCompatActivity() {
         binding.contrasenyaIncorrectoID.text=""
         binding.fechaIncorrectaID.text=""
         binding.userExistenteID.text=""
+        binding.terminosID.text=""
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private  fun comprobacionUser(
         usuario: Usuario,
-        nombreLength: Boolean,
-        contrasenyaLength: Boolean,
-        edadCorrecta: Boolean,
         userDao:UsuarioDao
     ) {
         resetMensajes()
         lifecycleScope.launch {
-            var nombreLength1 = nombreLength
-            var contrasenyaLength1 = contrasenyaLength
-            var edadCorrecta1 = edadCorrecta
+            var nombreLength1 = false
+            var contrasenyaLength1 = false
+            var edadCorrecta1 = false
+            var termCond=false
 
             var usuarioExistente:Boolean=false
             withContext(Dispatchers.IO) {
 
+                if (binding.terms.isChecked){
+                    termCond=true
+                }
                 if (usuario.nombre!=null && usuario.nombre.length in 4..10) {
                     nombreLength1 = true
                 }
@@ -104,10 +107,12 @@ class RegistroLogin : AppCompatActivity() {
                     }
                 }
                 edadCorrecta1 = esMenorDe16Anios(usuario.fechaNacimiento)
-                if (nombreLength1 && contrasenyaLength1 && edadCorrecta1) {
+                if (nombreLength1 && contrasenyaLength1 && edadCorrecta1 && termCond) {
                     val comprobacionNombre = userDao.comprobarPorNombre(usuario.nombre)
                     if (comprobacionNombre == null) {
                         userDao.insertarUsuario(usuario)
+                        val intent = Intent(this@RegistroLogin, MainActivity::class.java)
+                        startActivity(intent)
                     }else{
                         usuarioExistente=true
                     }
@@ -132,6 +137,9 @@ class RegistroLogin : AppCompatActivity() {
                 if (!edadCorrecta1) {
 
                 binding.fechaIncorrectaID.text = "Debes tener mas de 16 años"
+                }
+                if (!termCond){
+                    binding.terminosID.setText("Acepte los Terminos y Condiciones")
                 }
             }
         }
