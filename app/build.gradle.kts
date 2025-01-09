@@ -50,7 +50,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //Serializar
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    //BBDD Room
     implementation ("androidx.room:room-runtime:2.4.0")
     kapt ("androidx.room:room-compiler:2.4.0")
+    //cargar Api
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    //cargar imagenes
+    implementation ("com.squareup.picasso:picasso:2.8")
 }

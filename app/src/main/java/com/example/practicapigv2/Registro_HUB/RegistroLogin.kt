@@ -4,23 +4,27 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.practicapigv2.R
 import com.example.practicapigv2.Registro_HUB.BBDD.DataBaseUsuario
 import com.example.practicapigv2.Registro_HUB.BBDD.Usuario
 import com.example.practicapigv2.Registro_HUB.BBDD.UsuarioDao
-import com.example.practicapigv2.databinding.ActivityHubBinding
+import com.example.practicapigv2.Registro_HUB.RandomUserAPI.RandomUserApiResponse
+import com.example.practicapigv2.Registro_HUB.RandomUserAPI.RandomUserApiService
 import com.example.practicapigv2.databinding.ActivityRegistroLoginBinding
-import com.example.practicapigv2.juegoDado.MainActivity
-import com.example.practicapigv2.juegoDado.MainActivity2
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -36,6 +40,12 @@ class RegistroLogin : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.datePickerID.isFocusable = false
+
+
+
+        fotoPerfil(binding.avatar1)
+        fotoPerfil(binding.avatar2)
+       fotoPerfil(binding.avatar3)
 
         binding.datePickerID.setOnClickListener {
             datePicker()
@@ -68,7 +78,80 @@ class RegistroLogin : AppCompatActivity() {
                     )
                     comprobacionUser(usuario,userDao)
         }
+        binding.Aleatorio.setOnClickListener{
+            fotoPerfil(binding.avatar1)
+            fotoPerfil(binding.avatar2)
+            fotoPerfil(binding.avatar3)
+        }
+        binding.AleatorioFemenino.setOnClickListener{
+            fotoPerfilGenero(binding.avatar1)
+            fotoPerfilGenero(binding.avatar2)
+            fotoPerfilGenero(binding.avatar3)
+        }
     }
+
+    private fun fotoPerfil(bind: ImageButton) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://randomuser.me/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(RandomUserApiService::class.java)
+        val call = service.getRandomUser()
+        call.enqueue(object : Callback<RandomUserApiResponse> {
+            override fun onResponse(
+                call: Call<RandomUserApiResponse>,
+                response: Response<RandomUserApiResponse>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("MARIO", "dENTRO DEL 1ER IF")
+                    val imageUrl = response.body()?.results?.get(0)?.picture?.large
+                    if (!imageUrl.isNullOrEmpty()) {
+                        // Utiliza Picasso u otra biblioteca para cargar la imagen en el ImageView
+                        Log.d("MARIO", "dENTRO DEL SEGUNDO IF")
+                        Picasso.get().load(imageUrl).into(bind)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<RandomUserApiResponse>, t: Throwable) {
+                // Manejar el fallo de la solicitud
+                Log.d("MARIO", "dERRRRRRRRRRR")
+            }
+        })
+    }
+    private fun fotoPerfilGenero(bind: ImageButton) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://randomuser.me/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(RandomUserApiService::class.java)
+        val call = service.getRandomUser()
+        call.enqueue(object : Callback<RandomUserApiResponse> {
+            override fun onResponse(
+                call: Call<RandomUserApiResponse>,
+                response: Response<RandomUserApiResponse>
+            ) {
+                response.body()?.results?.get(0)?.gender="female"
+
+                if (response.isSuccessful) {
+                    Log.d("MARIO", "dENTRO DEL 1ER IF")
+                    val imageUrl = response.body()?.results?.get(0)?.picture?.large
+                    if (!imageUrl.isNullOrEmpty()) {
+                        // Utiliza Picasso u otra biblioteca para cargar la imagen en el ImageView
+                        Log.d("MARIO", "dENTRO DEL SEGUNDO IF")
+                        Picasso.get().load(imageUrl).into(bind)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<RandomUserApiResponse>, t: Throwable) {
+                // Manejar el fallo de la solicitud
+                Log.d("MARIO", "dERRRRRRRRRRR")
+            }
+        })
+    }
+
+
     private fun resetMensajes(){
         binding.nombreIncorrectoID.text=""
         binding.contrasenyaIncorrectoID.text=""
