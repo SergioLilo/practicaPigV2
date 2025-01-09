@@ -60,4 +60,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     //cargar imagenes
     implementation ("com.squareup.picasso:picasso:2.8")
+    //DATA Store
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 }

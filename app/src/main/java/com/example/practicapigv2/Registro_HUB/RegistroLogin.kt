@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.practicapigv2.Registro_HUB.BBDD.DataBaseUsuario
 import com.example.practicapigv2.Registro_HUB.BBDD.Usuario
 import com.example.practicapigv2.Registro_HUB.BBDD.UsuarioDao
+import com.example.practicapigv2.Registro_HUB.RandomUserAPI.Picture
 import com.example.practicapigv2.Registro_HUB.RandomUserAPI.RandomUserApiResponse
 import com.example.practicapigv2.Registro_HUB.RandomUserAPI.RandomUserApiService
 import com.example.practicapigv2.databinding.ActivityRegistroLoginBinding
@@ -31,21 +33,24 @@ import java.time.format.DateTimeFormatter
 
 
 class RegistroLogin : AppCompatActivity() {
+
     lateinit var binding: ActivityRegistroLoginBinding
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityRegistroLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.datePickerID.isFocusable = false
+        var urlElegida:String=""
 
 
-
-        fotoPerfil(binding.avatar1)
-        fotoPerfil(binding.avatar2)
-       fotoPerfil(binding.avatar3)
+        fotoPerfil(binding.avatar1,binding.url1)
+        fotoPerfil(binding.avatar2,binding.url2)
+       fotoPerfil(binding.avatar3,binding.url3)
 
         binding.datePickerID.setOnClickListener {
             datePicker()
@@ -58,7 +63,7 @@ class RegistroLogin : AppCompatActivity() {
 
 
 
-
+        Log.d("HOLA","1:"+binding.url1.text.toString()+" 2:"+binding.url2.text+" 3:"+binding.url3.text)
         val userDao = DataBaseUsuario.getDatabase(this@RegistroLogin).usuarioDao()
         lifecycleScope.launch {
             withContext(Dispatchers.IO){
@@ -74,29 +79,52 @@ class RegistroLogin : AppCompatActivity() {
                     val usuario: Usuario = Usuario(
                         nombre = binding.nombreID.text.toString(),
                         contrasenya = binding.contrasenyaID.text.toString(),
-                        fechaNacimiento = binding.datePickerID.text.toString()
+                        fechaNacimiento = binding.datePickerID.text.toString(),
+                        urlFoto=urlElegida
                     )
                     comprobacionUser(usuario,userDao)
         }
         binding.Aleatorio.setOnClickListener{
-            fotoPerfil(binding.avatar1)
-            fotoPerfil(binding.avatar2)
-            fotoPerfil(binding.avatar3)
+            fotoPerfil(binding.avatar1,binding.url1)
+            fotoPerfil(binding.avatar2,binding.url2)
+            fotoPerfil(binding.avatar3,binding.url3)
+            Log.d("HOLA","1:"+binding.url1.text.toString()+" 2:"+binding.url2.text+" 3:"+binding.url3.text)
         }
-        binding.AleatorioFemenino.setOnClickListener{
-            fotoPerfilGenero(binding.avatar1)
-            fotoPerfilGenero(binding.avatar2)
-            fotoPerfilGenero(binding.avatar3)
+        binding.aleatorioFemenino.setOnClickListener{
+            fotoPerfilGenero(binding.avatar1,"female",binding.url1)
+            fotoPerfilGenero(binding.avatar2,"female",binding.url2)
+            fotoPerfilGenero(binding.avatar3,"female",binding.url3)
+            Log.d("HOLA","1:"+binding.url1.text.toString()+" 2:"+binding.url2.text+" 3:"+binding.url3.text)
+
+        }
+        binding.aleatorioMasculino.setOnClickListener {
+            fotoPerfilGenero(binding.avatar1,"male",binding.url1)
+            fotoPerfilGenero(binding.avatar2,"male",binding.url2)
+            fotoPerfilGenero(binding.avatar3,"male",binding.url3)
+            Log.d("HOLA","1:"+binding.url1.text.toString()+" 2:"+binding.url2.text+" 3:"+binding.url3.text)
+        }
+        binding.avatar1.setOnClickListener{
+            urlElegida=binding.url1.text.toString()
+            Log.d("URL",urlElegida)
+        }
+        binding.avatar2.setOnClickListener{
+            urlElegida=binding.url2.text.toString()
+            Log.d("URL",urlElegida)
+        }
+        binding.avatar3.setOnClickListener{
+            urlElegida=binding.url3.text.toString()
+            Log.d("URL",urlElegida)
         }
     }
 
-    private fun fotoPerfil(bind: ImageButton) {
+    private fun fotoPerfil(bind: ImageButton, url:TextView) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://randomuser.me/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(RandomUserApiService::class.java)
         val call = service.getRandomUser()
+
         call.enqueue(object : Callback<RandomUserApiResponse> {
             override fun onResponse(
                 call: Call<RandomUserApiResponse>,
@@ -109,6 +137,8 @@ class RegistroLogin : AppCompatActivity() {
                         // Utiliza Picasso u otra biblioteca para cargar la imagen en el ImageView
                         Log.d("MARIO", "dENTRO DEL SEGUNDO IF")
                         Picasso.get().load(imageUrl).into(bind)
+                        url.text = imageUrl
+
                     }
                 }
             }
@@ -118,29 +148,33 @@ class RegistroLogin : AppCompatActivity() {
                 Log.d("MARIO", "dERRRRRRRRRRR")
             }
         })
+
+
     }
-    private fun fotoPerfilGenero(bind: ImageButton) {
+    private fun fotoPerfilGenero(bind: ImageButton,genero:String,url:TextView) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://randomuser.me/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(RandomUserApiService::class.java)
-        val call = service.getRandomUser()
+        val call = service.getRandomUserGender(genero)
+
         call.enqueue(object : Callback<RandomUserApiResponse> {
             override fun onResponse(
                 call: Call<RandomUserApiResponse>,
                 response: Response<RandomUserApiResponse>
             ) {
-                response.body()?.results?.get(0)?.gender="female"
 
                 if (response.isSuccessful) {
-                    Log.d("MARIO", "dENTRO DEL 1ER IF")
+                        Log.d("MARIO", "dENTRO DEL 1ER IF")
                     val imageUrl = response.body()?.results?.get(0)?.picture?.large
-                    if (!imageUrl.isNullOrEmpty()) {
-                        // Utiliza Picasso u otra biblioteca para cargar la imagen en el ImageView
-                        Log.d("MARIO", "dENTRO DEL SEGUNDO IF")
-                        Picasso.get().load(imageUrl).into(bind)
-                    }
+                        if (!imageUrl.isNullOrEmpty()) {
+                            // Utiliza Picasso u otra biblioteca para cargar la imagen en el ImageView
+                            Log.d("MARIO", "dENTRO DEL SEGUNDO IF")
+                            Picasso.get().load(imageUrl).into(bind)
+                            url.text = imageUrl
+                        }
+
                 }
             }
 
@@ -149,6 +183,7 @@ class RegistroLogin : AppCompatActivity() {
                 Log.d("MARIO", "dERRRRRRRRRRR")
             }
         })
+
     }
 
 

@@ -9,10 +9,10 @@ interface UsuarioDao {
 
     @Insert
      fun insertarUsuario(usuario: Usuario)
-
      @Query("Select * from usuario where usuario_nombre= :nombreIntroducido")
      fun comprobarPorNombre(nombreIntroducido:String):Usuario?
     @Query("Select * from usuario")
     fun obtenerTodosUsuarios(): List<Usuario>
-
+    @Query("Select * from usuario where usuario_nombre= :nombre and usuario_contrasenya= :contrasenya")
+    fun obtenerUsuario(nombre:String,contrasenya:String): Usuario
 }

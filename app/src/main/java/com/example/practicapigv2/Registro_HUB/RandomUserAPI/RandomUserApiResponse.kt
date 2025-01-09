@@ -5,7 +5,7 @@ data class RandomUserApiResponse(
 )
 
 data class User(
-    var gender: String,
+
     val name: Name,
     val picture: Picture
 )

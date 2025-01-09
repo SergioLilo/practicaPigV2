@@ -10,6 +10,7 @@ data class Usuario(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "usuario_nombre")var nombre:String,
     @ColumnInfo(name = "usuario_contrasenya") var contrasenya:String,
-    @ColumnInfo(name = "usuario_fechaNacimiento")var fechaNacimiento:String
+    @ColumnInfo(name = "usuario_fechaNacimiento")var fechaNacimiento:String,
+    @ColumnInfo(name = "usuario_fotoPerfil")var urlFoto:String,
 
 )
