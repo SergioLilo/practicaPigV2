@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface  RandomUserApiService{
-    @GET("api/?picture=large")
+    @GET("api/")
     fun getRandomUser(): Call<RandomUserApiResponse>
     @GET("api/")
     fun getRandomUserGender(@Query("gender") gender: String): Call<RandomUserApiResponse>

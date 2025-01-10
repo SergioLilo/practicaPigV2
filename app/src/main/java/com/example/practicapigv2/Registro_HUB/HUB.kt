@@ -20,10 +20,12 @@ class HUB : AppCompatActivity() {
         binding = ActivityHubBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val fotoPerf:String= intent.getStringExtra("foto").toString()
         binding.juegoPigBoton.setOnClickListener {
             val intent = Intent(this@HUB, MainActivity::class.java)
             startActivity(intent)
 
         }
+        println(fotoPerf)
     }
 }

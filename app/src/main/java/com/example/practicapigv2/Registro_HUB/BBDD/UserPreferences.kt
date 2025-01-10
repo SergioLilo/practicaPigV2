@@ -17,7 +17,6 @@ class UserPreferences(private val context: Context) {
         val NOMBE_KEY = stringPreferencesKey("user_nombre")
         val CONTRASENYA_KEY = stringPreferencesKey("user_contrasenya")
         val USER_REMEMBER = booleanPreferencesKey("user_recordar")
-
     }
 
     // Guardar datos
@@ -26,7 +25,6 @@ class UserPreferences(private val context: Context) {
             preferences[NOMBE_KEY] = name
             preferences[CONTRASENYA_KEY] = contrasenya
             preferences[USER_REMEMBER] = recordar
-
 
         }
     }
@@ -45,5 +43,4 @@ class UserPreferences(private val context: Context) {
         .map { preferences ->
             preferences[USER_REMEMBER] ?: false
         }
-
 }

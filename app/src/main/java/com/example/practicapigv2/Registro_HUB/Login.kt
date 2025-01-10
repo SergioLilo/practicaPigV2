@@ -46,33 +46,31 @@ class Login : AppCompatActivity() {
 
                     withContext(Dispatchers.IO) {
 
-                            val usuario = userDao.obtenerUsuario(
-                                binding.nombreID.text.toString(),
-                                binding.contrasenyaID.text.toString()
-                            )
+                        val usuario = userDao.obtenerUsuario(
+                            binding.nombreID.text.toString(),
+                            binding.contrasenyaID.text.toString()
+                        )
 
-                            if (usuario == null) {
-                                binding.incorrectoID.text = "Nombre o Contraseña incorrectos"
-                            }
-
-                            else{
-                                intent = Intent(this@Login, HUB::class.java)
-                                intent.putExtra("usuarioHub","")
-                                startActivity(intent)}
-                            }
+                        if (usuario == null) {
+                            binding.incorrectoID.text = "Nombre o Contraseña incorrectos"
+                        } else {
+                            intent = Intent(this@Login, HUB::class.java)
+                            intent.putExtra("foto", usuario.urlFoto)
+                            startActivity(intent)
                         }
                     }
                 }
-
-
+            }
         }
+
+
+    }
 
 
     private fun quitarCheckConCambios() {
         binding.nombreID.setOnClickListener {
             binding.recordarID.isChecked = false
         }
-
 
         binding.contrasenyaID.setOnClickListener {
             binding.recordarID.isChecked = false
@@ -82,7 +80,6 @@ class Login : AppCompatActivity() {
                 binding.recordarID.isChecked = false
             }
         }
-
         binding.contrasenyaID.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.recordarID.isChecked = false
@@ -94,7 +91,7 @@ class Login : AppCompatActivity() {
 
         if (recordar) {
             lifecycleScope.launch {
-                userPreferences.saveUserData(name,contra,recordar)
+                userPreferences.saveUserData(name, contra, recordar)
 
             }
         }
@@ -106,10 +103,10 @@ class Login : AppCompatActivity() {
         val recordar = binding.recordarID.isChecked
 
         if (recordar) {
+
             val name = binding.nombreID.text.toString()
             val contra = binding.contrasenyaID.text.toString()
-
-            saveUserData(name, contra,recordar)
+            saveUserData(name, contra, recordar)
         } else {
             lifecycleScope.launch {
                 userPreferences.saveUserData("", "", false)
@@ -128,6 +125,7 @@ class Login : AppCompatActivity() {
                     } }
                     launch { userPreferences.userContrasenya.collect { contra ->
                         binding.contrasenyaID.setText(contra)}
+
                     }
                 }
                 if(!remember) {
