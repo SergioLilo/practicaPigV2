@@ -55,7 +55,7 @@ class Login : AppCompatActivity() {
                             binding.incorrectoID.text = "Nombre o Contraseña incorrectos"
                         } else {
                             intent = Intent(this@Login, HUB::class.java)
-                            intent.putExtra("foto", usuario.urlFoto)
+                            intent.putExtra("foto", usuario.urlFoto.toString())
                             startActivity(intent)
                         }
                     }

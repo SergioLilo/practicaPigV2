@@ -11,6 +11,7 @@ import com.example.practicapigv2.databinding.ActivityHubBinding
 import com.example.practicapigv2.databinding.ActivityMainBinding
 import com.example.practicapigv2.juegoDado.MainActivity
 import com.example.practicapigv2.juegoDado.MainActivity2
+import com.squareup.picasso.Picasso
 
 class HUB : AppCompatActivity() {
     lateinit var binding: ActivityHubBinding
@@ -21,11 +22,13 @@ class HUB : AppCompatActivity() {
         setContentView(binding.root)
 
         val fotoPerf:String= intent.getStringExtra("foto").toString()
+        binding.imagenPerfil
+        Picasso.get().load(fotoPerf).into(binding.imagenPerfil)
         binding.juegoPigBoton.setOnClickListener {
             val intent = Intent(this@HUB, MainActivity::class.java)
             startActivity(intent)
 
         }
-        println(fotoPerf)
+        println("url: "+fotoPerf)
     }
 }
