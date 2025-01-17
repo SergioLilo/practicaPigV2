@@ -8,8 +8,11 @@ import retrofit2.http.Query
 
 interface  ChuckNorrisApiService{
 
-    @GET("jokes/")
-    fun getRandomUserGender(@Query("category") gender: String): Call<ChuckNorrisApiResponse>
+    @GET("jokes/random")
+    fun getRandomValue(): Call<ChuckNorrisApiResponse>
+
+    @GET("jokes/random")
+    fun getRandomValueCategory(@Query("category") category:String): Call<ChuckNorrisApiResponse>
 }
 
 

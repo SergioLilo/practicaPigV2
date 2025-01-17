@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.practicapigv2.R
+import com.example.practicapigv2.chistesChuck.ChistesChuck
 import com.example.practicapigv2.databinding.ActivityHubBinding
 import com.example.practicapigv2.databinding.ActivityMainBinding
 import com.example.practicapigv2.juegoDado.MainActivity
@@ -29,6 +30,10 @@ class HUB : AppCompatActivity() {
             startActivity(intent)
 
         }
+        binding.norris.setOnClickListener({
+            val intent = Intent(this@HUB, ChistesChuck::class.java)
+            startActivity(intent)
+        })
         println("url: "+fotoPerf)
     }
 }
