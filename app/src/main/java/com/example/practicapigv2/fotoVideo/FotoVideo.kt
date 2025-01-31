@@ -2,6 +2,7 @@ package com.example.practicapigv2.fotoVideo
 
 import android.Manifest
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.os.Build
@@ -52,11 +53,14 @@ class FotoVideo : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val nombreUsu:String= intent.getStringExtra("nombre").toString()
+
         viewBinding = ActivityFotoVideoBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
        viewBinding.viewFinder.visibility=View.GONE
 
         viewBinding.abrirCam.setOnClickListener {
+            viewBinding.listaID.visibility=View.GONE
             if (allPermissionsGranted()) {
                 viewBinding.viewFinder.visibility = View.VISIBLE
 
@@ -71,6 +75,12 @@ class FotoVideo : AppCompatActivity() {
             viewBinding.button2.setOnClickListener { captureVideo() }
             cameraExecutor = Executors.newSingleThreadExecutor()
         }
+        viewBinding.listaID.setOnClickListener({
+
+            val intent = Intent(this@FotoVideo, ListadoFotoVideo::class.java)
+            intent.putExtra("nombre", nombreUsu.toString())
+            startActivity(intent)
+        })
 
 
         // Set up the listeners for take photo and video capture buttons
