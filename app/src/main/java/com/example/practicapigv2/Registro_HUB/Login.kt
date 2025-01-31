@@ -56,6 +56,7 @@ class Login : AppCompatActivity() {
                         } else {
                             intent = Intent(this@Login, HUB::class.java)
                             intent.putExtra("foto", usuario.urlFoto.toString())
+                            intent.putExtra("usuario", usuario.nombre.toString())
                             startActivity(intent)
                         }
                     }

@@ -62,4 +62,14 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.8")
     //DATA Store
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    //Camara
+    val camerax_version = "1.1.0-beta01"
+    implementation ("androidx.camera:camera-core:${camerax_version}")
+    implementation ("androidx.camera:camera-camera2:${camerax_version}")
+    implementation ("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation ("androidx.camera:camera-video:${camerax_version}")
+    implementation ("androidx.camera:camera-view:${camerax_version}")
+    implementation ("androidx.camera:camera-extensions:${camerax_version}")
+
 }
