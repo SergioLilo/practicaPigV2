@@ -18,6 +18,8 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.MediaStoreOutputOptions
+import androidx.camera.video.Quality
+import androidx.camera.video.QualitySelector
 import androidx.camera.video.Recorder
 import androidx.camera.video.Recording
 import androidx.camera.video.VideoCapture
@@ -79,7 +81,8 @@ class FotoVideo : AppCompatActivity() {
     }
 
     private fun takePhoto() {
-        Log.d("Photo","dentro")
+        val nombreUsu:String= intent.getStringExtra("nombre").toString()
+        Log.d(TAG,"dentro")
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
@@ -90,7 +93,7 @@ class FotoVideo : AppCompatActivity() {
             put(MediaStore.MediaColumns.DISPLAY_NAME, name)
             put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
             if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/CameraX-Image")
+                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/"+nombreUsu)
             }
         }
 
@@ -108,14 +111,14 @@ class FotoVideo : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e("Photo", "Photo capture failed: ${exc.message}", exc)
+                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
                 }
 
                 override fun
                         onImageSaved(output: ImageCapture.OutputFileResults){
                     val msg = "Photo capture succeeded: ${output.savedUri}"
                     Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-                    Log.d("Photo", msg)
+                    Log.d(TAG, msg)
                 }
             }
         )
@@ -135,7 +138,7 @@ class FotoVideo : AppCompatActivity() {
             recording = null
             return
         }
-
+        val nombreUsu:String= intent.getStringExtra("nombre").toString()
         // create and start a new recording session
         val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
             .format(System.currentTimeMillis())
@@ -143,7 +146,7 @@ class FotoVideo : AppCompatActivity() {
             put(MediaStore.MediaColumns.DISPLAY_NAME, name)
             put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                put(MediaStore.Video.Media.RELATIVE_PATH, "Movies/CameraX-Video")
+                put(MediaStore.Video.Media.RELATIVE_PATH, "Movies/"+nombreUsu)
             }
         }
 
@@ -206,7 +209,13 @@ class FotoVideo : AppCompatActivity() {
                 .also {
                     it.setSurfaceProvider(viewBinding.viewFinder.surfaceProvider)
                 }
+            val recorder = Recorder.Builder()
+                .setQualitySelector(QualitySelector.from(Quality.HIGHEST))
+                .build()
+
             imageCapture = ImageCapture.Builder().build()
+            videoCapture = VideoCapture.withOutput(recorder)
+
             // Select back camera as a default
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
@@ -216,13 +225,14 @@ class FotoVideo : AppCompatActivity() {
 
                 // Bind use cases to camera
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview)
+                    this, cameraSelector, preview, imageCapture,videoCapture)
 
             } catch(exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
 
         }, ContextCompat.getMainExecutor(this))
+
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
