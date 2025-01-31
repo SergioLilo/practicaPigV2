@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">practicaPigV2</string>
+    <string name="stop_capture" />
+    <string name="start_capture" />
 </resources>
